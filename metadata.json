@@ -1,0 +1,20 @@
+{
+  "name": "Blur My Dynamic Panel",
+  "description": "Dynamic Panel and the panel blur of Blur my Shell, merged into one extension.\n\nKeeps every Dynamic Panel feature (floating and solid modes, custom and automatic colors, hide mode, area background) and adds a real blur behind the panel, with the effect pipelines and background styles of Blur my Shell, following the floating panel shape and its animations.\n\nBased on Dynamic Panel by 龍翔翎 (velade) and Blur my Shell by aunetx and contributors. Unofficial: not affiliated with nor updated by the original projects. Do not enable together with Dynamic Panel, and turn off the panel blur of Blur my Shell.",
+  "uuid": "blur-my-dynamic-panel@rafaelmotacr",
+  "settings-schema": "org.gnome.shell.extensions.blur-my-dynamic-panel",
+  "gettext-domain": "blur-my-dynamic-panel",
+  "url": "https://github.com/rafaelmotacr/blur-my-dynamic-panel",
+  "original-authors": [
+    "Rafael Mota (rafaelmotacr)"
+  ],
+  "shell-version": [
+    "46",
+    "47",
+    "48",
+    "49",
+    "51"
+  ],
+  "version": 3,
+  "version-name": "1.1.1"
+}

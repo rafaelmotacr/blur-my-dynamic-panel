@@ -1,0 +1,248 @@
+/* SPDX-License-Identifier: GPL-3.0-or-later
+ * Blur My Dynamic Panel - https://github.com/rafaelmotacr/blur-my-dynamic-panel
+ * Panel blur styles adapted from Blur my Shell, Copyright (c) aunetx and contributors
+ * (GPL-3.0-or-later). Modifications Copyright (c) 2026 Rafael Mota.
+ * Class names are prefixed with `dp-blur-` so they never clash with Blur my Shell itself. */
+
+/*** PANEL ***/
+
+/*
+* `.dp-blur-transparent-panel`
+*/
+
+#panel.dp-blur-transparent-panel {
+    background: transparent !important;
+    transition-duration: 500ms;
+}
+
+/*
+* `.dp-blur-dark-panel`
+*/
+#panel.dp-blur-dark-panel {
+    background-color: rgba(30, 30, 33, 0.5) !important;
+    box-shadow: none !important;
+    transition-duration: 500ms;
+}
+
+/*
+* `.dp-blur-light-panel`
+*/
+#panel.dp-blur-light-panel {
+    background-color: rgba(255, 255, 255, 0.58) !important;
+    box-shadow: none !important;
+    transition-duration: 500ms;
+}
+
+/*
+* `.dp-blur-contrasted-panel`
+*/
+#panel.dp-blur-contrasted-panel {
+    background-color: transparent !important;
+    box-shadow: none !important;
+    transition-duration: 500ms;
+}
+
+/*
+* `.dp-blur-gradient-panel`
+*/
+/* Internal use */
+
+#panel.dp-blur-gradient-panel {
+    background-color: transparent !important;
+    background-gradient-direction: vertical !important;
+    background-gradient-start: rgba(0,0,0,0.5) !important;
+    background-gradient-end: rgba(0,0,0,0) !important;
+    box-shadow: none !important;
+    transition-duration: 500ms;
+}
+
+/*
+* `.dp-blur-gradient-panel-reverse`
+*/
+/* Internal use */
+
+#panel.dp-blur-gradient-panel-reverse {
+    background-color: transparent !important;
+    background-gradient-direction: vertical !important;
+    background-gradient-start: rgba(0,0,0,0) !important;
+    background-gradient-end: rgba(0,0,0,0.5) !important;
+    box-shadow: none !important;
+    transition-duration: 500ms;
+}
+
+.dp-blur-contrasted-panel .panel-button,
+.dp-blur-contrasted-panel .clock,
+.dp-blur-contrasted-panel .clock-display StIcon {
+    color: #ffffff;
+    border-radius: 14px;
+    border: 3px solid transparent;
+    background-color: rgba(0, 0, 0, 0.8);
+    box-shadow: inset 0 0 0 1px rgba(255, 255, 255, 0.03);
+}
+
+
+.dp-blur-contrasted-panel .clock-display StIcon {
+    padding: 8px;
+    margin: 0;
+}
+
+.dp-blur-contrasted-panel .panel-button:hover,
+.dp-blur-contrasted-panel .panel-button:hover .clock {
+    color: #ffffff;
+    background-color: rgba(42, 42, 42, 0.85);
+}
+
+.dp-blur-contrasted-panel .panel-button:active,
+.dp-blur-contrasted-panel .panel-button:checked,
+.dp-blur-contrasted-panel .panel-button:focus,
+.dp-blur-contrasted-panel .panel-button:active .clock,
+.dp-blur-contrasted-panel .panel-button:checked .clock {
+    color: #ffffff;
+    background-color: rgba(64, 64, 64, 0.9);
+}
+
+.dp-blur-contrasted-panel .clock-display {
+    background-color: transparent !important;
+    box-shadow: none !important;
+    border: none !important;
+}
+
+.dp-blur-contrasted-panel .clock {
+    margin: 0 !important;
+}
+
+
+/*** PANEL LIGHT TEXT ***/
+
+/*
+* `.dp-blur-panel-light-text`, adapted from gnome-shell-light.css
+*/
+
+.dp-blur-panel-light-text #panel .panel-button,
+.dp-blur-panel-light-text #panel .panel-button.clock-display,
+.dp-blur-panel-light-text #panel .netSpeedLabel {
+    color: #f6f5f4;
+    box-shadow: none;
+}
+
+.dp-blur-panel-light-text #panel .panel-button:active,
+.dp-blur-panel-light-text #panel .panel-button:focus,
+.dp-blur-panel-light-text #panel .panel-button:checked,
+.dp-blur-panel-light-text #panel .panel-button.clock-display:active .clock,
+.dp-blur-panel-light-text #panel .panel-button.clock-display:focus .clock,
+.dp-blur-panel-light-text #panel .panel-button.clock-display:checked .clock {
+    box-shadow: inset 0 0 0 100px rgba(246, 245, 244, 0.25);
+}
+
+.dp-blur-panel-light-text #panel .panel-button:active:hover,
+.dp-blur-panel-light-text #panel .panel-button:focus:hover,
+.dp-blur-panel-light-text #panel .panel-button:checked:hover,
+.dp-blur-panel-light-text #panel .panel-button.clock-display:active:hover,
+.dp-blur-panel-light-text #panel .panel-button.clock-display:focus:hover,
+.dp-blur-panel-light-text #panel .panel-button.clock-display:checked:hover,
+.dp-blur-panel-light-text #panel .panel-button.clock-display:active .clock:hover,
+.dp-blur-panel-light-text #panel .panel-button.clock-display:focus .clock:hover,
+.dp-blur-panel-light-text #panel .panel-button.clock-display:checked .clock:hover {
+    box-shadow: inset 0 0 0 100px rgba(246, 245, 244, 0.35);
+}
+
+.dp-blur-panel-light-text #panel .panel-button:hover,
+.dp-blur-panel-light-text #panel .panel-button.clock-display:hover,
+.dp-blur-panel-light-text #panel .panel-button.clock-display:hover .clock {
+    box-shadow: inset 0 0 0 100px rgba(246, 245, 244, 0.2);
+}
+
+.dp-blur-panel-light-text #panel .panel-button#panelActivities .workspace-dot {
+    background-color: #f6f5f4;
+}
+
+.dp-blur-panel-light-text #panel .panel-button.clock-display:active,
+.dp-blur-panel-light-text #panel .panel-button.clock-display:focus,
+.dp-blur-panel-light-text #panel .panel-button.clock-display:checked,
+.dp-blur-panel-light-text #panel .panel-button.clock-display:hover {
+    box-shadow: none !important;
+}
+
+.dp-blur-panel-light-text #panel .panel-button.screen-recording-indicator {
+    color: #fafafb;
+    box-shadow: inset 0 0 0 100px #c01c28;
+}
+
+.dp-blur-panel-light-text #panel .panel-button.screen-recording-indicator:focus,
+.dp-blur-panel-light-text #panel .panel-button.screen-recording-indicator:hover {
+    box-shadow: inset 0 0 0 100px #d61f2d;
+}
+
+.dp-blur-panel-light-text #panel .panel-button.screen-recording-indicator:active,
+.dp-blur-panel-light-text #panel .panel-button.screen-recording-indicator:checked {
+    box-shadow: inset 0 0 0 100px #e02a37;
+}
+
+.dp-blur-panel-light-text #panel .panel-button.screen-recording-indicator:active:hover,
+.dp-blur-panel-light-text #panel .panel-button.screen-recording-indicator:checked:hover {
+    box-shadow: inset 0 0 0 100px #e13340;
+}
+
+.dp-blur-panel-light-text #panel .panel-button.screen-sharing-indicator {
+    color: #fafafb;
+    box-shadow: inset 0 0 0 100px #ff7800;
+}
+
+.dp-blur-panel-light-text #panel .panel-button.screen-sharing-indicator:focus,
+.dp-blur-panel-light-text #panel .panel-button.screen-sharing-indicator:hover {
+    box-shadow: inset 0 0 0 100px #ff861a;
+}
+
+.dp-blur-panel-light-text #panel .panel-button.screen-sharing-indicator:active,
+.dp-blur-panel-light-text #panel .panel-button.screen-sharing-indicator:checked {
+    box-shadow: inset 0 0 0 100px #ff902e;
+}
+
+.dp-blur-panel-light-text #panel .panel-button.screen-sharing-indicator:active:hover,
+.dp-blur-panel-light-text #panel .panel-button.screen-sharing-indicator:checked:hover {
+    box-shadow: inset 0 0 0 100px #ff9638;
+}
+
+/*
+* `.dp-blur-panel-overview-light-theme`, keeps panel text and icons dark in overview when using light theme
+*/
+
+.dp-blur-panel-overview-light-theme #panel:overview .panel-button,
+.dp-blur-panel-overview-light-theme #panel:overview .panel-button.clock-display,
+.dp-blur-panel-overview-light-theme #panel:overview .panel-button .clock,
+.dp-blur-panel-overview-light-theme #panel:overview .panel-button .system-status-icon {
+    color: rgba(0, 0, 0, 0.8) !important;
+    text-shadow: none !important;
+    icon-shadow: none !important;
+}
+
+.dp-blur-panel-overview-light-theme #panel:overview .panel-button.screen-recording-indicator,
+.dp-blur-panel-overview-light-theme #panel:overview .panel-button.screen-sharing-indicator {
+    color: #f6f5f4 !important;
+}
+
+.dp-blur-panel-overview-light-theme #panel:overview .panel-button#panelActivities .workspace-dot {
+    background-color: rgba(0, 0, 0, 0.8) !important;
+}
+
+.dp-blur-panel-overview-light-theme #panel:overview .panel-button:hover,
+.dp-blur-panel-overview-light-theme #panel:overview .panel-button.clock-display:hover .clock {
+    box-shadow: inset 0 0 0 100px rgba(0, 0, 0, 0.10) !important;
+}
+
+.dp-blur-panel-overview-light-theme #panel:overview .panel-button:active,
+.dp-blur-panel-overview-light-theme #panel:overview .panel-button:focus,
+.dp-blur-panel-overview-light-theme #panel:overview .panel-button:checked,
+.dp-blur-panel-overview-light-theme #panel:overview .panel-button.clock-display:active .clock,
+.dp-blur-panel-overview-light-theme #panel:overview .panel-button.clock-display:focus .clock,
+.dp-blur-panel-overview-light-theme #panel:overview .panel-button.clock-display:checked .clock {
+    box-shadow: inset 0 0 0 100px rgba(0, 0, 0, 0.15) !important;
+}
+
+.dp-blur-panel-overview-light-theme #panel:overview .panel-button.clock-display,
+.dp-blur-panel-overview-light-theme #panel:overview .panel-button.clock-display:hover,
+.dp-blur-panel-overview-light-theme #panel:overview .panel-button.clock-display:active,
+.dp-blur-panel-overview-light-theme #panel:overview .panel-button.clock-display:focus,
+.dp-blur-panel-overview-light-theme #panel:overview .panel-button.clock-display:checked {
+    box-shadow: none !important;
+}

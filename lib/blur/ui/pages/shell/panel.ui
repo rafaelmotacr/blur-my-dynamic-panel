@@ -1,0 +1,258 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<interface domain="blur-my-dynamic-panel">
+  <template class="DpBlurPanel" parent="AdwPreferencesPage">
+    <property name="name">blur</property>
+    <property name="title" translatable="yes">Blur</property>
+    <property name="icon-name">dp-blur-pipelines-symbolic</property>
+
+    <child>
+      <object class="AdwPreferencesGroup" id="bms_warning_group">
+        <property name="visible">false</property>
+        <child>
+          <object class="AdwActionRow">
+            <property name="title" translatable="yes">Blur my Shell is also blurring the panel</property>
+            <property name="subtitle" translatable="yes">Turn off its Panel blur, or this blur, so the panel is not blurred twice</property>
+            <child type="prefix">
+              <object class="GtkImage">
+                <property name="icon-name">dialog-warning-symbolic</property>
+              </object>
+            </child>
+          </object>
+        </child>
+      </object>
+    </child>
+
+    <child>
+      <object class="AdwPreferencesGroup">
+        <property name="description" translatable="yes">Real blur behind the panels, adapted from Blur my Shell. It works together with the Floating and Solid modes of the panel.</property>
+        <child>
+          <object class="AdwSwitchRow" id="blur">
+            <property name="title" translatable="yes">Blur</property>
+          </object>
+        </child>
+      </object>
+    </child>
+
+    <child>
+      <object class="AdwPreferencesGroup">
+        <child>
+          <object class="DpBlurBlurModeRow" id="blur_mode_row">
+            <property name="sensitive" bind-source="blur" bind-property="active" bind-flags="sync-create" />
+          </object>
+        </child>
+
+        <child>
+          <object class="DpBlurPipelineChooseRow" id="pipeline_choose_row">
+            <property name="sensitive" bind-source="blur" bind-property="active" bind-flags="sync-create" />
+          </object>
+        </child>
+
+        <child>
+          <object class="AdwSwitchRow" id="unblur_in_overview">
+            <property name="title" translatable="yes">Disable in overview</property>
+            <property name="sensitive" bind-source="blur" bind-property="active" bind-flags="sync-create" />
+          </object>
+        </child>
+      </object>
+    </child>
+
+    <child>
+      <object class="AdwPreferencesGroup">
+        <property name="title" translatable="yes">Panel Modes</property>
+        <property name="description" translatable="yes">How the blur of the main panel follows the Floating and Solid modes</property>
+        <property name="sensitive" bind-source="blur" bind-property="active" bind-flags="sync-create" />
+
+        <child>
+          <object class="AdwSwitchRow" id="blur_in_floating">
+            <property name="title" translatable="yes">Blur in Floating Mode</property>
+            <property name="subtitle" translatable="yes">Also used while the panel peeks in the Hide type of Solid Mode</property>
+          </object>
+        </child>
+
+        <child>
+          <object class="AdwSwitchRow" id="blur_in_solid">
+            <property name="title" translatable="yes">Blur in Solid Mode</property>
+          </object>
+        </child>
+
+        <child>
+          <object class="AdwSwitchRow" id="match_panel_shape">
+            <property name="title" translatable="yes">Follow the panel shape</property>
+            <property name="subtitle" translatable="yes">Use the border radius and the Area background mode of the floating panel instead of the corner settings below</property>
+          </object>
+        </child>
+
+        <child>
+          <object class="AdwSwitchRow" id="use_panel_detection">
+            <property name="title" translatable="yes">Use the panel window detection</property>
+            <property name="subtitle" translatable="yes">The window proximity options below follow the Detection Method of the General page</property>
+          </object>
+        </child>
+
+        <child>
+          <object class="AdwComboRow" id="background_priority">
+            <property name="title" translatable="yes">Background priority</property>
+            <property name="subtitle" translatable="yes">Which background wins when the panel custom colors are applied and the blur background style is set too</property>
+            <property name="model">background_priority_model</property>
+          </object>
+        </child>
+      </object>
+    </child>
+
+    <child>
+      <object class="AdwPreferencesGroup">
+        <property name="title" translatable="yes">Appearance</property>
+        <property name="sensitive" bind-source="blur" bind-property="active" bind-flags="sync-create" />
+
+        <child>
+          <object class="AdwSpinRow" id="corner_radius_row">
+            <property name="title" translatable="yes">Corner radius</property>
+            <property name="adjustment">corner_radius</property>
+          </object>
+        </child>
+
+        <child>
+          <object class="AdwComboRow" id="rounded_corners">
+            <property name="title" translatable="yes">Rounded corners</property>
+            <property name="model">rounded_corners_model</property>
+          </object>
+        </child>
+
+        <child>
+          <object class="AdwSwitchRow" id="force_light_text">
+            <property name="title" translatable="yes">Force light text</property>
+            <property name="subtitle" translatable="yes">Useful with a light shell theme</property>
+          </object>
+        </child>
+
+        <child>
+          <object class="AdwSwitchRow" id="match_theme_in_overview">
+            <property name="title" translatable="yes">Match theme in overview</property>
+          </object>
+        </child>
+      </object>
+    </child>
+
+    <child>
+      <object class="AdwPreferencesGroup">
+        <property name="title" translatable="yes">Background</property>
+        <property name="sensitive" bind-source="blur" bind-property="active" bind-flags="sync-create" />
+
+        <child>
+          <object class="AdwSwitchRow" id="override_background">
+            <property name="title" translatable="yes">Override background</property>
+          </object>
+        </child>
+
+        <child>
+          <object class="AdwComboRow" id="style_panel">
+            <property name="title" translatable="yes">Background style</property>
+            <property name="model">style_panel_model</property>
+            <property name="sensitive" bind-source="override_background" bind-property="active" bind-flags="sync-create" />
+          </object>
+        </child>
+
+        <child>
+          <object class="AdwSwitchRow" id="override_background_dynamically">
+            <property name="title" translatable="yes">Override background dynamically</property>
+            <property name="subtitle" translatable="yes">Changes the background when a window is near the panel</property>
+            <property name="sensitive" bind-source="override_background" bind-property="active" bind-flags="sync-create" />
+          </object>
+        </child>
+
+        <child>
+          <object class="AdwComboRow" id="override_background_dynamically_mode">
+            <property name="title" translatable="yes">When a window is near</property>
+            <property name="subtitle" translatable="yes">Blur on Window Proximity: Blur only when a window is near the panel and transparent when it is not.
+Background on Window Proximity: Solid color background when a window is near the panel and blur when it is not.</property>
+            <property name="model">override_background_dynamically_mode_model</property>
+            <property name="sensitive" bind-source="override_background" bind-property="active" bind-flags="sync-create" />
+          </object>
+        </child>
+
+        <child>
+          <object class="AdwSwitchRow" id="gradient_panel">
+            <property name="title" translatable="yes">Gradient background</property>
+            <property name="sensitive" bind-source="override_background" bind-property="active" bind-flags="sync-create" />
+          </object>
+        </child>
+
+        <child>
+          <object class="AdwComboRow" id="gradient_panel_mode">
+            <property name="title" translatable="yes">Gradient direction</property>
+            <property name="model">gradient_panel_mode_model</property>
+            <property name="sensitive" bind-source="override_background" bind-property="active" bind-flags="sync-create" />
+          </object>
+        </child>
+      </object>
+    </child>
+
+    <child>
+      <object class="AdwPreferencesGroup">
+        <property name="title" translatable="yes">Compatibility</property>
+        <property name="sensitive" bind-source="blur" bind-property="active" bind-flags="sync-create" />
+
+        <child>
+          <object class="AdwSwitchRow" id="hidetopbar_compatibility">
+            <property name="title" translatable="yes">Hidetopbar extension</property>
+            <property name="subtitle" translatable="yes">Keeps the blur visible in the overview, best with static blur</property>
+            <property name="sensitive" bind-source="unblur_in_overview" bind-property="active" bind-flags="sync-create" />
+          </object>
+        </child>
+
+        <child>
+          <object class="AdwSwitchRow" id="dtp_blur_original_panel">
+            <property name="title" translatable="yes">Blur original panel with Dash to Panel</property>
+            <property name="subtitle" translatable="yes">When Dash to Panel keeps the original panel</property>
+          </object>
+        </child>
+      </object>
+    </child>
+  </template>
+
+  <object class="GtkStringList" id="background_priority_model">
+    <items>
+      <item translatable="yes">Panel colors</item>
+      <item translatable="yes">Blur background style</item>
+    </items>
+  </object>
+
+  <object class="GtkStringList" id="rounded_corners_model">
+    <items>
+      <item translatable="yes">All</item>
+      <item translatable="yes">Top only</item>
+      <item translatable="yes">Bottom only</item>
+      <item translatable="yes">None</item>
+    </items>
+  </object>
+
+  <object class="GtkStringList" id="style_panel_model">
+    <items>
+      <item translatable="yes">Transparent</item>
+      <item translatable="yes">Light</item>
+      <item translatable="yes">Dark</item>
+      <item translatable="yes">Contrasted</item>
+      <item translatable="yes">Automatic</item>
+    </items>
+  </object>
+
+  <object class="GtkStringList" id="override_background_dynamically_mode_model">
+    <items>
+      <item translatable="yes">Blur on Window Proximity</item>
+      <item translatable="yes">Background on Window Proximity</item>
+    </items>
+  </object>
+
+  <object class="GtkStringList" id="gradient_panel_mode_model">
+    <items>
+      <item translatable="yes">Top</item>
+      <item translatable="yes">Bottom</item>
+    </items>
+  </object>
+
+  <object class="GtkAdjustment" id="corner_radius">
+    <property name="lower">0</property>
+    <property name="upper">150</property>
+    <property name="step-increment">1</property>
+  </object>
+</interface>

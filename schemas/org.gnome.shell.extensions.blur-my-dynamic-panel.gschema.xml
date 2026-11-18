@@ -1,0 +1,361 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- SPDX-License-Identifier: GPL-3.0-or-later
+     Blur My Dynamic Panel. Keys derived from the Dynamic Panel schema (Copyright (c) 2024 velade,
+     M.W.B License) and the Blur my Shell schema (Copyright (c) aunetx and contributors). -->
+<schemalist>
+	<schema id="org.gnome.shell.extensions.blur-my-dynamic-panel" path="/org/gnome/shell/extensions/blur-my-dynamic-panel/">
+		<key type="i" name="radius-times">
+			<default>100</default>
+			<summary>Percentage of rounded corners for the panel in floating mode, 100 is completely round, 0 is no rounded corners</summary>
+			<description/>
+		</key>
+		<key type="i" name="float-width">
+			<default>99</default>
+			<summary>The horizontal size (which I'll call "length" or "width" depending on your preference) of the panel when it's in floating mode.</summary>
+			<description/>
+		</key>
+		<key type="i" name="float-align">
+			<default>1</default>
+			<summary>Alignment of the panel in floating mode, 0 for left, 1 for center, 2 for right</summary>
+			<description/>
+		</key>
+		<key type="i" name="top-margin">
+			<default>10</default>
+			<summary>The distance between the panel and the top edge of the screen when in floating mode. This setting will not be applied in Solid Mode.</summary>
+			<description/>
+		</key>
+		<key type="i" name="side-margin">
+			<default>10</default>
+			<summary>The distance between the panel and the left or right edge of the screen when in floating mode. Whether it's the left or right edge depends on whether you're left-aligned or right-aligned. This setting is not available when center-aligned.</summary>
+			<description/>
+		</key>
+		<key type="i" name="transparent">
+			<default>75</default>
+			<summary>Opacity in floating mode, 0 is completely transparent, 100 is completely opaque. The panel menu also adheres to this setting.</summary>
+			<description/>
+		</key>
+		<key type="b" name="transparent-menus">
+			<default>true</default>
+			<summary>The name is a legacy issue. It now actually indicates whether the panel menu should apply the same style as the panel, including color, etc., not just opacity.</summary>
+			<description/>
+		</key>
+		<key type="b" name="transparent-menus-keep-alpha">
+			<default>false</default>
+			<summary>This option indicates whether the panel menu should always remain transparent. By default, it maintains the same transparency as the panel, so it will also become opaque in physical mode. Enabling this option will allow it to remain transparent even in physical mode.</summary>
+			<description/>
+		</key>
+		<key type="i" name="duration">
+			<default>250</default>
+			<summary>Duration of the animation, may not have an effect on the panel background gradient.</summary>
+			<description/>
+		</key>
+		<key type="b" name="auto-background">
+			<default>false</default>
+			<summary>Automatic background color: On/Off</summary>
+			<description/>
+		</key>
+		<key type="s" name="dark-bg-color">
+			<default>'rgb(0, 0, 0)'</default>
+			<summary>Custom dark mode background color</summary>
+			<description/>
+		</key>
+		<key type="s" name="dark-fg-color">
+			<default>'rgb(240, 240, 240)'</default>
+			<summary>Custom dark mode foreground color</summary>
+			<description/>
+		</key>
+		<key type="s" name="light-bg-color">
+			<default>'rgb(250, 250, 250)'</default>
+			<summary>Custom light mode background color</summary>
+			<description/>
+		</key>
+		<key type="s" name="light-fg-color">
+			<default>'rgb(0, 0, 0)'</default>
+			<summary>Custom light mode foreground color</summary>
+			<description/>
+		</key>
+		<key type="b" name="colors-use-in-static">
+			<default>false</default>
+			<summary>Whether to apply the custom color to physical mode.</summary>
+			<description/>
+		</key>
+		<key type="i" name="detection-mode">
+			<default>0</default>
+			<summary>The trigger to switch between Solid Mode and Floating Mode. By default, the panel will switch to Solid Mode when windows is close enough, without needing to maximize it.</summary>
+			<description/>
+		</key>
+		<key type="i" name="background-mode">
+			<default>0</default>
+			<summary>Background style of the panel when floating, 0 for a single background for the entire panel, 1 for applying backgrounds separately to the left, center, and right sections of the panel.</summary>
+			<description/>
+		</key>
+		<key type="b" name="auto-width">
+			<default>false</default>
+			<summary>Automatically determine the panel's horizontal size. When enabled, float-width will be unavailable.</summary>
+			<description/>
+		</key>
+		<key type="i" name="solid-type">
+			<default>0</default>
+			<summary>The type of Solid Mode the panel is in. 0 is a dock similar to the default GNOME panel, 1 will hide the panel.</summary>
+			<description/>
+		</key>
+		<key type="b" name="blur">
+			<default>false</default>
+			<summary>built-in blur effect in the switch</summary>
+			<description/>
+		</key>
+		<key type="b" name="addon-trigger-left">
+			<default>false</default>
+			<summary>addon trigger area for activities</summary>
+			<description/>
+		</key>
+		<key type="b" name="addon-trigger-center">
+			<default>false</default>
+			<summary>addon trigger area for datamenu</summary>
+			<description/>
+		</key>
+		<key type="b" name="addon-trigger-right">
+			<default>false</default>
+			<summary>addon trigger area for quick settings</summary>
+			<description/>
+		</key>
+		<key type="b" name="stable-workarea">
+			<default>true</default>
+			<summary>Keep the space reserved for the panel constant, so windows are not resized when the panel switches between the Floating and Solid modes</summary>
+			<description/>
+		</key>
+		<key type="b" name="animate-width">
+			<default>false</default>
+			<summary>Animate the width of the panel during transitions (smoother, but heavier: the whole panel is laid out again on every frame)</summary>
+			<description/>
+		</key>
+		<child name="blur" schema="org.gnome.shell.extensions.blur-my-dynamic-panel.blur"></child>
+	</schema>
+	<!-- PANEL BLUR (adapted from Blur my Shell) -->
+	<schema id="org.gnome.shell.extensions.blur-my-dynamic-panel.blur" path="/org/gnome/shell/extensions/blur-my-dynamic-panel/blur/">
+		<key type="a{sa{sv}}" name="pipelines">
+            <default> <![CDATA[
+                {
+                    'pipeline_default': {
+                        'name': <'Default'>,
+                        'effects': <[
+                            <{
+                                'type': <'dual_kawase_blur'>,
+                                'id': <'effect_000000000000'>,
+                                'params': <{
+                                    'unscaled_radius': <30>,
+                                    'brightness': <0.6>
+                                }>
+                            }>
+                        ]>
+                    },
+                    'pipeline_liquid_glass': {
+                        'name': <'Liquid Glass'>,
+                        'effects': <[
+                            <{
+                                'type': <'luminosity'>,
+                                'id': <'effect_liquid_glass_luminosity'>,
+                                'params': <{
+                                    'saturation_multiplicator': <1.1>
+                                }>
+                            }>,
+                            <{
+                                'type': <'refraction'>,
+                                'id': <'effect_liquid_glass_refraction'>,
+                                'params': <{
+                                    'tint': <0>
+                                }>
+                            }>,
+                            <{
+                                'type': <'noise'>,
+                                'id': <'effect_liquid_glass_noise'>,
+                                'params': <{
+                                    'noise': <0.1>
+                                }>
+                            }>
+                        ]>
+                    },
+                    'pipeline_vapor_glass': {
+                        'name': <'Vapor Glass'>,
+                        'effects': <[
+                            <{
+                                'type': <'luminosity'>,
+                                'id': <'effect_vapor_glass_luminosity'>,
+                                'params': <{
+                                    'saturation_multiplicator': <1.1>
+                                }>
+                            }>,
+                            <{
+                                'type': <'wave'>,
+                                'id': <'effect_vapor_glass_wave'>
+                            }>,
+                            <{
+                                'type': <'refraction'>,
+                                'id': <'effect_vapor_glass_refraction'>,
+                                'params': <{
+                                    'tint': <0>
+                                }>
+                            }>,
+                            <{
+                                'type': <'noise'>,
+                                'id': <'effect_vapor_glass_noise'>,
+                                'params': <{
+                                    'noise': <0.1>
+                                }>
+                            }>
+                        ]>
+                    },
+                    'pipeline_classic_light_background': {
+                        'name': <'Classic Light Background'>,
+                        'effects': <[
+                            <{
+                                'type': <'dual_kawase_blur'>,
+                                'id': <'effect_classic_light_blur'>,
+                                'params': <{
+                                    'unscaled_radius': <30>,
+                                    'brightness': <0.6>
+                                }>
+                            }>,
+                            <{
+                                'type': <'color'>,
+                                'id': <'effect_classic_light_color'>,
+                                'params': <{
+                                    'color': <(1.0, 1.0, 1.0, 0.25)>,
+                                    'blend_mode': <17>
+                                }>
+                            }>
+                        ]>
+                    },
+                    'pipeline_classic_dark_background': {
+                        'name': <'Classic Dark Background'>,
+                        'effects': <[
+                            <{
+                                'type': <'dual_kawase_blur'>,
+                                'id': <'effect_classic_dark_blur'>,
+                                'params': <{
+                                    'unscaled_radius': <30>,
+                                    'brightness': <0.6>
+                                }>
+                            }>,
+                            <{
+                                'type': <'color'>,
+                                'id': <'effect_classic_dark_color'>,
+                                'params': <{
+                                    'color': <(0.4, 0.4, 0.4, 0.35)>,
+                                    'blend_mode': <17>
+                                }>
+                            }>
+                        ]>
+                    }
+                }
+            ]]></default>
+            <summary>A dictionary describing the different pipelines and their effects.</summary>
+        </key>
+		<key type="b" name="debug">
+			<default>false</default>
+			<summary>Boolean, set to true to activate debug mode (more verbose journalctl logs)</summary>
+		</key>
+		<key type="b" name="power-saver">
+			<default>true</default>
+			<summary>Whether to disable the panel blur in Power Saver mode</summary>
+		</key>
+		<key type="b" name="blur-in-floating">
+			<default>true</default>
+			<summary>Whether to show the blur behind the main panel while the panel is in Floating Mode (also used by the Hide type of Solid Mode)</summary>
+		</key>
+		<key type="b" name="blur-in-solid">
+			<default>true</default>
+			<summary>Whether to show the blur behind the main panel while the panel is in Solid Mode (docked)</summary>
+		</key>
+		<key type="b" name="match-panel-shape">
+			<default>true</default>
+			<summary>Whether the blur of the main panel follows the shape of the panel (rounded corners, Area background mode) instead of the blur corner radius settings</summary>
+		</key>
+		<key type="b" name="use-panel-detection">
+			<default>true</default>
+			<summary>Whether the window proximity options of the blur use the the panel window detection (Floating Mode means no window near the main panel)</summary>
+		</key>
+		<key type="i" name="background-priority">
+			<default>0</default>
+			<range min="0" max="1"/>
+			<summary>Which background wins on the main panel when both are set: 0 the the panel colors, 1 the blur background style</summary>
+		</key>
+		<child name="panel" schema="org.gnome.shell.extensions.blur-my-dynamic-panel.blur.panel"></child>
+		<child name="hidetopbar" schema="org.gnome.shell.extensions.blur-my-dynamic-panel.blur.hidetopbar"></child>
+		<child name="dash-to-panel" schema="org.gnome.shell.extensions.blur-my-dynamic-panel.blur.dash-to-panel"></child>
+	</schema>
+
+	<schema id="org.gnome.shell.extensions.blur-my-dynamic-panel.blur.panel" path="/org/gnome/shell/extensions/blur-my-dynamic-panel/blur/panel/">
+		<key type="b" name="blur">
+			<default>false</default>
+			<summary>Boolean, whether to blur the panels (disabled by default so the panel keeps its previous look until enabled)</summary>
+		</key>
+		<key type="s" name="pipeline">
+			<default>"pipeline_default"</default>
+			<summary>String, the name of the pipeline to use. It must exist, else "pipeline_default" will be used</summary>
+		</key>
+		<key type="i" name="corner-radius">
+			<default>0</default>
+			<summary>Radius for the corner rounding effect</summary>
+		</key>
+		<key type="i" name="rounded-corners">
+			<default>0</default>
+			<range min="0" max="3"/>
+			<summary>Corners to round (0 all, 1 top, 2 bottom, 3 none)</summary>
+		</key>
+		<key type="b" name="static-blur">
+			<default>true</default>
+			<summary>Boolean, whether to use a static or dynamic blur</summary>
+		</key>
+		<key type="b" name="unblur-in-overview">
+			<default>true</default>
+			<summary>Boolean, whether to disable the blur when opening the overview or not</summary>
+		</key>
+		<key type="b" name="force-light-text">
+			<default>false</default>
+			<summary>Boolean, whether or not to force the panel to have light text, useful when using light theme</summary>
+		</key>
+		<key type="b" name="match-theme-in-overview">
+			<default>false</default>
+			<summary>Boolean, whether to keep panel text and icons matched to the system theme in overview</summary>
+		</key>
+		<key type="b" name="override-background">
+			<default>true</default>
+			<summary>Boolean, whether to override the background or not</summary>
+		</key>
+		<key type="i" name="style-panel">
+			<default>4</default>
+			<summary>Enum to select the style of the panel (0 transparent, 1 light, 2 dark, 3 contrasted, 4 automatic)</summary>
+		</key>
+		<key type="b" name="override-background-dynamically">
+			<default>false</default>
+			<summary>Boolean, whether to change the background when a window is close to the panel</summary>
+		</key>
+		<key type="i" name="override-background-dynamically-mode">
+			<default>1</default>
+			<summary>Enum to select the override mode (0 Blur on Window Proximity, 1 Background on Window Proximity). Requires "override-background-dynamically" to be enabled.</summary>
+		</key>
+		<key type="b" name="gradient-panel">
+			<default>false</default>
+			<summary>Boolean, whether to enable the gradient panel effect</summary>
+		</key>
+		<key type="i" name="gradient-panel-mode">
+			<default>0</default>
+			<summary>Enum to select the gradient panel mode (0 Top, 1 Bottom). Requires "gradient-panel" to be enabled.</summary>
+		</key>
+	</schema>
+
+	<schema id="org.gnome.shell.extensions.blur-my-dynamic-panel.blur.hidetopbar" path="/org/gnome/shell/extensions/blur-my-dynamic-panel/blur/hidetopbar/">
+		<key type="b" name="compatibility">
+			<default>false</default>
+			<summary>Boolean, whether to try compatibility with hidetopbar@mathieu.bidon.ca or not</summary>
+		</key>
+	</schema>
+
+	<schema id="org.gnome.shell.extensions.blur-my-dynamic-panel.blur.dash-to-panel" path="/org/gnome/shell/extensions/blur-my-dynamic-panel/blur/dash-to-panel/">
+		<key type="b" name="blur-original-panel">
+			<default>true</default>
+			<summary>Boolean, whether to blur the original panel (if option selected) with Dash to Panel</summary>
+		</key>
+	</schema>
+</schemalist>
